@@ -5,7 +5,7 @@ using namespace System.Windows.Automation.Text
 param()
 $ErrorActionPreference = "STOP"
 # WASP 3.0 is based on UIAutomation 3 using UIAComWrapper https://github.com/TestStack/UIAComWrapper
-Add-Type -Path $PSScriptRoot\Source\lib\*.dll
+Add-Type -Path .\Source\lib\*.dll
 # -- a lot of commands have weird names because they're being generated based on pattern names
 # -- eg: Invoke-Toggle.Toggle and Invoke-Invoke.Invoke
 
@@ -291,8 +291,8 @@ Pop-Location
 #   }
 
 Write-host "Deploy our generated files to the version folder";
-Get-ChildItem -Path "${pwd}/Source" | 
+Get-ChildItem -Path $pwd/Source | 
     forEach { 
-        Copy-Item -Path $_ -Recurse -Destination "${pwd}/3.0.0" -Verbose -Force 
+        Copy-Item -Path $_.FullName -Destination $pwd/3.0.0/ -Recurse -Verbose -Force 
     }
 Write-host "Finished."
